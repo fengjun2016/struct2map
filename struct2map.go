@@ -103,3 +103,13 @@ func checkIsSameSelectAttributes(selectA, selectB []map[string]interface{}) bool
 	}
 	return isTheSame
 }
+
+func ObjSlice2MapSlice(objSlice []interface{}) []map[string]interface{} {
+	mapSliceRes := make([]map[string]interface{})
+	mapRes := make(map[string]interface{})
+	for _, ov := range objSlice {
+		mapRes = obj2Map(ov)
+		mapSliceRes = append(mapSliceRes, mapRes)
+	}
+	return mapSliceRes
+}
