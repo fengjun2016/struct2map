@@ -28,6 +28,10 @@ func deleteAttr(obj interface{}, k string) map[string]interface{} {
 
 func updateAttr(obj interface{}, k string, v interface{}) map[string]interface{} {
 	mapData := obj2Map(obj)
+	//if the key not exists
+	if _, ok := mapData[k]; !ok {
+		return mapData
+	}
 	mapData[k] = v
 	return mapData
 }
