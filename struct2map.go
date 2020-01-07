@@ -66,7 +66,7 @@ func checkTwoSliceIsTheSame(selectAttributesA, selectAttributesB []interface{}) 
 	return isTheSame
 }
 
-func checkIsSameSelectAttributes(selectA, selectB []map[string]interface{}) bool {
+func checkIsSameSelectAttributes(selectA, selectB []map[string]interface{}, attrKName, checkKName string) bool {
 	isTheSame := true
 
 	//检查定制规格所选的规格类别数是否相等
@@ -78,11 +78,11 @@ func checkIsSameSelectAttributes(selectA, selectB []map[string]interface{}) bool
 	selectClassA := make([]string, 0)
 	selectClassB := make([]string, 0)
 	for _, aSelect := range selectA {
-		selectClassA = append(selectClassA, aSelect["name"].(string))
+		selectClassA = append(selectClassA, aSelect[attrKName].(string))
 	}
 
 	for _, bSelect := range selectB {
-		selectClassB = append(selectClassB, bSelect["name"].(string))
+		selectClassB = append(selectClassB, bSelect[attrKName].(string))
 	}
 
 	//检查两个选择规格类别是否名称一样
@@ -93,9 +93,9 @@ func checkIsSameSelectAttributes(selectA, selectB []map[string]interface{}) bool
 	//检查同一个规格类别选择的定制项个数和定制项是否一致
 	for _, aSelect := range selectA {
 		for _, bSelect := range selectB {
-			if aSelect["name"] == bSelect["name"] {
+			if aSelect[attrKName] == bSelect[attrKName] {
 				// check 同一个名称的规格选择项是否相同
-				if !checkTwoSliceIsTheSame(aSelect["select_values"].([]string), bSelect["select_values"].([]string)) {
+				if !checkTwoSliceIsTheSame(aSelect[checkKName].([]string), bSelect[checkKName].([]string)) {
 					return false
 				}
 			}
